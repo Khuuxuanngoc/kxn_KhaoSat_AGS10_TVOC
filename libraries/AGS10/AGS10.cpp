@@ -33,7 +33,7 @@ void AGS10::begin()
 void AGS10::calibrateFact()
 {
   uint8_t data[4] = {CALIB_CMD1, CALIB_CMD2, CALIB_FACT, CALIB_FACT};
-  _crc = Calc_CRC8(uint8_t(data), uint8_t(0x01));
+  _crc = Calc_CRC8((uint8_t*) data, (uint8_t) 0x01);
   Wire.beginTransmission(AGS10_ADDR);
   Wire.write(CALIB_REG);
   Wire.write(CALIB_CMD1);
@@ -94,6 +94,7 @@ int AGS10::readVersion()
 
     return _version;
   }
+  return 0;
 }
 
 int AGS10::readResist()
@@ -115,6 +116,7 @@ int AGS10::readResist()
     
     return _resist;
   }
+  return 0;
 }
 
 int AGS10::readTVOC()
@@ -138,5 +140,6 @@ int AGS10::readTVOC()
   
     return _tvoc;
   }
+  return 0;
 }
 
